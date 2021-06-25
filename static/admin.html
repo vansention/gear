@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html ng-app="raiden_admin">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理后台</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/static/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/adminlte/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="/static/adminlte/bower_components/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="/static/adminlte/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/static/adminlte/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/static/css/solid.css">
+    <link href="/static/js/angular-ui-notification.css" rel="stylesheet">
+
+    <script src="/static/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/static/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/adminlte/bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="/static/adminlte/js/adminlte.min.js"></script>
+    <script src="/static/adminlte/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <script src="/static/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/static/adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/static/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!--<script src="/static/adminlte/js/pages/dashboard2.js"></script>-->
+    <!--<script src="/static/adminlte/angular-chart.js/angular-chart.min.js"></script>-->
+
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/angular-animate.min.js"></script>
+    <script src="/static/js/angular-ui-router.js"></script>
+    <script src="/static/js/angular-ui-notification.js"></script>
+    <script src="/static/js/ui-bootstrap.min.js"></script>
+    <script src="/static/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="/static/js/Chart.bundle.min.js"></script>
+    <script src="/static/js/Chart.min.js"></script>
+    <script src="/static/js/api-check.min.js"></script>
+    <script src="/static/js/formly.min.js"></script>
+    <script src="/static/js/angular-formly-templates-bootstrap.min.js"></script>
+    <script src="/static/js/angular-base64-upload.js"></script>
+    <script src="/static/js/angular-base64-upload.js"></script>
+    <script src="/static/js/qrcode.js"></script>
+    <script src="/static/js/qrcode.min.js"></script>
+</head>
+<body class="hold-transition skin-red sidebar-mini">
+<!--<raiden-api api="/api/service/account.one/">-->
+<div class="wrapper">
+
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="/index" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">管理后台</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">管理后台</span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <!--                    <li class="dropdown messages-menu">-->
+                    <!--                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                    <!--                            <i class="fa fa-envelope-o"></i>-->
+                    <!--                            &lt;!&ndash;-->
+                    <!--                            <span class="label label-success">4</span>-->
+                    <!--                            &ndash;&gt;-->
+                    <!--                        </a>-->
+                    <!--                    </li>-->
+                    <!--                    &lt;!&ndash; Notifications: style can be found in dropdown.less &ndash;&gt;-->
+                    <!--                    <li class="dropdown notifications-menu">-->
+                    <!--                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                    <!--                            <i class="fa fa-bell-o"></i>-->
+                    <!--                            &lt;!&ndash;<span class="label label-warning">10</span>&ndash;&gt;-->
+                    <!--                        </a>-->
+                    <!--                    </li>-->
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-unlock-alt">&nbsp;修改密码</i>
+                            <!--<span class="label label-danger">9</span>-->
+                        </a>
+
+                        <ul class="dropdown-menu" ng-controller="AdminUpdatePasswordCtrl">
+
+                            <div class="box box-primary">
+                                <div class="box-header with-border text-center">
+                                    <h3 class="box-title">修改密码</h3>
+                                </div>
+
+                                <form class="form" action="/admin_update_password/" method="post">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="current_password">原密码</label>
+                                            <input type="password" class="form-control form-control-lg rounded-0"
+                                                   id="current_password"
+                                                   required
+                                                   name="current_password"
+                                                   ng-model="current_password"
+                                                   placeholder="请输入原密码">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="new_password">新密码</label>
+                                            <input type="password" class="form-control form-control-lg rounded-0"
+                                                   id="new_password"
+                                                   required
+                                                   name="new_password"
+                                                   ng-model="new_password"
+                                                   placeholder="请输入新密码">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="confirm_password">确定密码</label>
+                                            <input type="password" class="form-control form-control-lg rounded-0"
+                                                   id="confirm_password"
+                                                   required
+                                                   name="confirm_password"
+                                                   ng-focus="check()"
+                                                   ng-model="confirm_password"
+                                                   placeholder="请再次输入新密码">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="pull-left">
+                                            <span class="text-red" style="line-height: 40px; margin-left: 10px;">{{ tip }}</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-primary" ng-disabled="!submit">确定修改
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown user user-menu" ng-controller="UserInfoCtrl">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <img src="/static/adminlte/img/avatar5.png" class="user-image" alt="User Image">
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li class="user-header">
+                                <img src="/static/adminlte/img/avatar5.png" class="img-circle" alt="User Image">
+
+                                <p>
+                                    <span><b>{{ username }}</b></span>
+                                    <small>账号创建于</small>
+                                    <span>{{ create_time }}</span>
+                                </p>
+                            </li>
+
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="/logout/" class="btn btn-default btn-flat">退出登录</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="/static/adminlte/img/avatar5.png" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info" ng-controller="UserInfoCtrl">
+                    <a href="#"><i class="fa fa-circle text-success"></i><span
+                            style="font-size: 20px;">{{ username }}</span></a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">导航菜单</li>
+                <li class="active treeview menu-open">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>功能管理</span>
+                        <span class="pull-right-container">
+                             <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+
+                    <ul class="treeview-menu" ng-controller="NavCtrl">
+                        <li class="active" ng-repeat="nav in nav_list" ui-sref-active="active"><a ui-sref="{{nav.href}}"><i class="fa fa-circle-o"></i> {{nav.name}}</a></li>
+                    </ul>
+
+                </li>
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <!--<h1 id="mainView">
+                Dashboard
+                <small>数据面板</small>
+            </h1>-->
+            <ol class="breadcrumb" ng-controller="BreadcrumbCtrl">
+                <li ng-repeat="nav in navs"><a href="#"><i ng-if="" class="fa fa-dashboard"></i></a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content" ng-controller="BaseViewCtrl">
+            <ui-view></ui-view>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <!--<div class="pull-right hidden-xs">
+            <b>Version</b> 2.4.0
+        </div>-->
+        <!--<strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> 版权所有.-->
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i
+                                    class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+
+</div>
+</raiden-api>
+<!-- ./wrapper -->
+<script src="/static/app/liquid.js"></script>
+<script src="/static/adminlte/js/demo.js"></script>
+<script src="/static/admin/app.js"></script>
+<script src="/static/admin/controllers.js"></script>
+<script src="/static/admin/filters.js"></script>
+<script src="/static/admin/services.js"></script>
+<script src="/static/app/services.js"></script>
+<script src="/static/app/directives.js"></script>
+<script src="/static/app/controllers.js"></script>
+<script src="/static/app/filters.js"></script>
+
+
+</body>
+</html>

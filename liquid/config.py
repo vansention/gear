@@ -1,0 +1,50 @@
+
+DB_NAME = 'example'
+
+SERVICE_URL = ""
+
+
+ROOM_INIT = [
+]
+
+GAME_INIT = [
+]
+
+GAME_SLUG = {
+}
+
+ROBOT_CONFIG = {}
+
+
+class GRAB_STATUS:
+    CREATED = 0
+    SUCCESS = 1
+    FAIED = 2
+    SETTLED = 3
+
+
+class GOLD_UPDATE_REASON:
+    RECHARGE = 1
+    WITHDRAW = 2
+    GRAB_REDPACK = 3
+    SEND_REDPACK = 4
+    REDPACK_SETTLE = 5
+    AWARD_GOLD = 6
+
+
+class GOLD_FROZEN_REASON:
+    SEND_REDPACK_NIU = 1
+    GRAB_REDPACK_NIU = 2
+    GRAB_REDPACK_MULTI_BOOM = 3
+
+
+class GOLD_FROZEN_STATUS:
+
+    LOCKED = 1  # 刚创建，为锁定状态
+    CLEAR = 2  # 处理完成，解锁
+
+
+class APP_SERVICE_ERROR:
+
+    GOLD_NOT_ENOUGH = '余额不足'
+    USER_GRABED = '已抢'
